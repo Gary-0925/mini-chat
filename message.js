@@ -18,47 +18,35 @@ async function load_message() {
         return;
     }
     titlerEl.innerHTML = "Gary0 的迷你聊天室";
-    let pageHTML = `
-        <div style="text-align:center">
-            <button onclick="window.scrollTo(0, document.body.scrollHeight);">⬇滚动到底部以发送消息</button>
-        </div>
-        <table border="1" style="width: 70%; border-collapse: collapse; margin: 0 auto;">
-            <thead>
-                <tr>
-                    <th>用户</th>
-                    <th>内容</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
-    messages.forEach(message => {
-        pageHTML += `
-            <tr>
-                <td>${message.name}</td>
-                <td>${message.info}</td>
-            </tr>
-        `;
-    });
-    pageHTML += `
-            </tbody>
-        </table>
-    `;
+    let pageHTML = ``;
     if (localStorage.getItem("default_name") != null)
         pageHTML += `
-            <div style="text-align: center;">
+            <div class="card" style="width: 40%; position: fixed; right: 0; bottom: 0;">
                 <textarea id="name_text" rows="2" cols="20" placeholder="昵称" spellcheck=false>${localStorage.getItem("default_name")}</textarea>
-                <textarea id="message_text" rows="10" cols="50" placeholder="发布一条友好的发言吧"></textarea>
+                <textarea id="message_text" rows="10" style="width: 95%" placeholder="发布一条友好的发言吧"></textarea>
                 <button onclick="send_message()">发送</button>
             </div>
         `
     else
         pageHTML += `
-            <div style="text-align: center;">
+            <div class="card" style="width: 40%; position: fixed; right: 0; bottom: 0;">
                 <textarea id="name_text" rows="2" cols="20" placeholder="昵称" spellcheck=false></textarea>
-                <textarea id="message_text" rows="10" cols="50" placeholder="发布一条友好的发言吧"></textarea>
+                <textarea id="message_text" rows="10" style="width: 95%" placeholder="发布一条友好的发言吧"></textarea>
                 <button onclick="send_message()">发送</button>
             </div>
         `
+    pageHTML += `<div style="display: grid; place-items: center;">`;
+    messages.forEach(message => {
+        const info = md.render(message.info);
+        pageHTML += `
+            <div class="card" style="width: 70%;">
+                <div class="card" style="width: 100px; text-align: center;">${message.name}</div>
+                ${info}
+            </div>
+            <p></p>
+        `;
+    });
+    pageHTML += `</div>`;
     containerEl.innerHTML = pageHTML;
 }
 
