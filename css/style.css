@@ -2,6 +2,14 @@ body {
     background: linear-gradient(to bottom right, #d6f0c3, #e5e8c2);
 }
 
+a {
+    color: #306972;
+    text-decoration: none;
+}
+a:hover {
+    color: #17a672;
+    text-decoration: underline;
+}
 
 .card {
     background: #e2ebdb;

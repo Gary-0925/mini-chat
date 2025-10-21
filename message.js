@@ -9,7 +9,7 @@ async function load_message() {
     const supabase = getClient();
     const titlerEl = document.getElementById('titler');
     const containerEl = document.getElementById('container');
-    const { data: messages, error } = await supabase
+    var { data: messages, error } = await supabase
         .from('messages')
         .select('id, name, info')
         .order('id');
@@ -17,6 +17,7 @@ async function load_message() {
         containerEl.innerHTML = `<p>消息加载失败...你可以尝试刷新页面，有时候数据库状态不太好，毕竟是免费的啦...</p>`;
         return;
     }
+    if (getArgs('all') != "1") messages = messages.slice(0, 20);
     titlerEl.innerHTML = "Gary0 的迷你聊天室";
     let pageHTML = ``;
     if (localStorage.getItem("default_name") != null)
@@ -47,6 +48,8 @@ async function load_message() {
         `;
     });
     pageHTML += `</div>`;
+    if (getArgs('all') != "1") pageHTML += `<div style="text-align: center;"><a href="?all=1">查看更多<\a></div>`
+    else pageHTML += `<div style="text-align: center;"><a href="?all=0">查看更少<\a></div>`
     containerEl.innerHTML = pageHTML;
 }
 
