@@ -43,7 +43,7 @@ async function load() {
                 <p>注意：由于本站逻辑，登录成功不意味着可以使用该账号发送消息，您登录后发送的消息可能在无法被他人查看</p>
                 <textarea id="name_text" rows="2" cols="20" placeholder="昵称" spellcheck=false></textarea>
                 <textarea id="prikey_text" rows="10" placeholder="priKey" spellcheck=false style="width: 100%"></textarea>
-                <p style="text-align: right;">或者<a>注册</a></p>
+                <p style="text-align: right;">或者<a href="/mini-chat/signup.html">注册</a></p>
                 <button onclick="sign_in()">提交</button>
             </div>
         `;
@@ -51,5 +51,6 @@ async function load() {
         //console.log("Public Key: ", publicKey);
     }
 }
+
 
 load();
