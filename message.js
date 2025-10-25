@@ -53,9 +53,13 @@ async function load_list() {
             <div class="card" style="width: 40%; position: fixed; right: 0; bottom: 0;">
                 <div class="card" style="width: 100px; text-align: center;">
                     ${localStorage.getItem("name")}
-                    <a onclick="sign_out()">登出</a>
                 </div>
-                <textarea id="message_text" rows="10" style="width: 95%" placeholder="发布一条友好的发言吧"></textarea>
+                <div style="text-align: right;">
+                    <a href="/mini-chat/prikey.html">查看我的 priKey</a>
+                    <br>
+                    <a href="javascript:sign_out()" style="color: #ff0000">登出</a>
+                </div>
+                <textarea id="message_text" rows="10" style="width: 97%" placeholder="发布一条友好的发言吧"></textarea>
                 <button onclick="send_message()">发送</button>
             </div>
         `;
@@ -81,7 +85,7 @@ async function load_list() {
         else pageHTML += `<div style="text-align: center;"><a href="?all=0">查看更少<\a></div>`
         containerEl.innerHTML = pageHTML;
     } else {
-        window.location.replace("/mini-chat/signin.html");
+        window.location.replace("/mini-chat/signup.html");
     }
 }
 
