@@ -19,7 +19,7 @@ function load() {
                 <p>请注意，账号注册后，如果登出，忘记 priKey 无法找回账号，或许可以找管理员把账号注销</p>
                 <p>请务必保管好 priKey</p>
                 <p>我的 priKey：</p>
-                <textarea id="name_text" rows="30" placeholder="priKey" spellcheck=false style="text-align: center; width: 100%">${localStorage.getItem("priKey")}</textarea>
+                <textarea id="name_text" rows="20" placeholder="priKey" spellcheck=false style="text-align: center; width: 100%">${localStorage.getItem("priKey")}</textarea>
                 <p></p>
                 <button onclick="ok()">确定</button>
             </div>
