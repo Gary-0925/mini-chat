@@ -80,7 +80,7 @@ async function load_list() {
             containerEl.innerHTML = pageHTML;
         } else {
             try {
-                var { data: article, error: errorm } = await supabase
+                const { data: article, error: errorm } = await supabase
                     .from('articles')
                     .select('id, name, title, info, sign')
                     .eq('id', getArgs('id'));
@@ -125,7 +125,7 @@ async function send_article() {
         const articleTitle = document.getElementById('article_title').value;
         const articleInfo = document.getElementById('article_text').value;
         if (userName == null) alert('错误：未登录');
-        else if (articleInfo == '') alert('错误：消息为空');
+        else if (articleInfo == '') alert('错误：文章为空');
         else {
             const crypt = new JSEncrypt({ default_key_size: 2048 });
             const priKey = localStorage.getItem('priKey');
