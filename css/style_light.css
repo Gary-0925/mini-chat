@@ -20,6 +20,10 @@ a:hover {
     box-shadow: 0.3em 0.3em 0.7em #00000015;
     transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: #e2ebdb 0.2em solid;
+    padding-top: 3px;
+    padding-right: 10px;
+    padding-bottom: 3px;
+    padding-left: 10px;
 }
 
 .card:hover {
