@@ -2,10 +2,12 @@ body {
     background: linear-gradient(to bottom right, #d6f0c3, #e5e8c2);
 }
 
+
 a {
     color: #306972;
     text-decoration: none;
 }
+
 a:hover {
     color: #17a672;
     text-decoration: underline;
@@ -49,4 +51,35 @@ button:active {
     box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%);
     outline: none;
     border: 2px solid #17a672;
+}
+
+
+ul {
+    list-style-type: none;
+    overflow: hidden;
+    background-color: #89cfc6;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 28px;
+    text-decoration: none;
+}
+
+li a:hover {
+    color: white;
+    text-decoration: none;
+    background-color: #79ada6;
 }

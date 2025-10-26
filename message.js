@@ -23,12 +23,6 @@ function verify_message(id, pubkey, info, sign) {
     catch (error) { return false; }
 }
 
-function sign_out() {
-    localStorage.removeItem("name");
-    localStorage.removeItem("priKey");
-    window.location.reload();
-}
-
 async function load_list() {
     if (localStorage.getItem("name") != null) {
         const supabase = getClient();
@@ -47,18 +41,18 @@ async function load_list() {
             return;
         }
         if (getArgs('all') != "1") messages = messages.slice(0, 20);
-        titlerEl.innerHTML = "Gary0 的迷你聊天室";
+        titlerEl.innerHTML = "聊天室";
         let pageHTML = ``;
         pageHTML += `
             <div class="card" style="width: 40%; position: fixed; right: 0; bottom: 0;">
                 <div class="card" style="width: 100px; text-align: center;">
                     ${localStorage.getItem("name")}
                 </div>
-                <div style="text-align: right;">
+                <!--div style="text-align: right;">
                     <a href="/mini-chat/prikey.html">查看我的 priKey</a>
                     <br>
                     <a href="javascript:sign_out()" style="color: #ff0000">登出</a>
-                </div>
+                </div-->
                 <textarea id="message_text" rows="10" style="width: 97%" placeholder="发布一条友好的发言吧"></textarea>
                 <button onclick="send_message()">发送</button>
             </div>

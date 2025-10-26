@@ -14,7 +14,7 @@ function getArgs(key) {
     }
     return key ? args[key] : args;
 }
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const currentPath = window.location.pathname;
     let scriptPath = currentPath.replace(/\.html$/, '.js');
     if (!scriptPath.endsWith(".js")) scriptPath += ".js";
@@ -22,3 +22,19 @@ document.addEventListener('DOMContentLoaded', function() {
     script.src = scriptPath;
     document.head.appendChild(script);
 });
+function sign_out() {
+    localStorage.removeItem("name");
+    localStorage.removeItem("priKey");
+    window.location.reload();
+}
+if (!window.location.href.includes('sign'))
+    document.write(`
+        <ul>
+            <li><a>Gary0</a></li>
+            <li><a href="/mini-chat/message.html">聊天</a></li>
+            <li><a href="/mini-chat/article.html">文章</a></li>
+            <li><a href="/mini-chat/prikey.html">我的</a></li>
+            <li style="position: fixed; right: 0;"><a href="javascript:sign_out()" style="color: red;">登出</a></li>
+        </ul>
+        <br>
+    `)
