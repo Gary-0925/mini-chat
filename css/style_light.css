@@ -1,25 +1,24 @@
 body {
-    background: #d6f0c3;
-    color: black;
+    background: #ffffff;
+    color: #000000;
 }
 
-
 a {
-    color: #306972;
+    color: #8ab1b8;
     text-decoration: none;
 }
 
 a:hover {
-    color: #17a672;
+    color: #3e94e9;
     text-decoration: underline;
 }
 
 .card {
-    background: #e2ebdb;
+    background: #f7f7f7;
     border-radius: 0.4em;
     box-shadow: 0.3em 0.3em 0.7em #00000015;
     transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: #e2ebdb 0.2em solid;
+    border: #f7f7f7 0.2em solid;
     padding-top: 3px;
     padding-right: 10px;
     padding-bottom: 3px;
@@ -27,42 +26,33 @@ a:hover {
 }
 
 .card:hover {
-    border: #17a672 0.2em solid;
+    border: #008eda 0.2em solid;
 }
 
 
 button {
-    background-color: #fff;
-    border-radius: 10px;
+    background-color: #e7e7e7;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
     border-style: none;
-    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px, rgba(0, 0, 0, .14) 0 6px 10px 0, rgba(0, 0, 0, .12) 0 1px 18px 0;
     box-sizing: border-box;
-    color: #3c4043;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: inherit;
-    letter-spacing: .25px;
-    line-height: normal;
     padding: 10px 15px;
-    transition: background box-shadow 280ms ease;
 }
 
 button:hover {
-    background: #F6F9FE;
-    color: #17a672;
+    color: #0e68bc;
 }
 
 button:active {
     box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%);
     outline: none;
-    border: 2px solid #17a672;
+    border: 2px solid #0854a6;
 }
-
 
 ul {
     list-style-type: none;
     overflow: hidden;
-    background-color: #89cfc6;
+    background-color: #eaeaea;
     position: fixed;
     width: 100%;
     left: 0;
@@ -77,21 +67,32 @@ li {
 
 li a {
     display: block;
-    color: white;
+    color: rgb(155, 155, 155);
     text-align: center;
     padding: 10px 15px;
     text-decoration: none;
 }
 
 li a:hover {
-    color: white;
+    color: rgb(155, 155, 155);
     text-decoration: none;
-    background-color: #79ada6;
-
+    background-color: #d2d2d2;
 }
 
 
 textarea {
-    background-color: white;
-    color: black;
+    background-color: #ffffff;
+}
+
+code {
+    background-color: #efefef;
+    border-radius: 5px;
+    width: 90%;
+}
+
+pre {
+    background-color: #efefef;
+    padding: 3px;
+    border-radius: 5px;
+    width: 90%;
 }

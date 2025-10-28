@@ -1,24 +1,25 @@
 body {
-    background: #1f2328;
-    color: #bfbfbf;
+    background: #d6f0c3;
+    color: black;
 }
 
+
 a {
-    color: #8ab1b8;
+    color: #306972;
     text-decoration: none;
 }
 
 a:hover {
-    color: #3e94e9;
+    color: #17a672;
     text-decoration: underline;
 }
 
 .card {
-    background: #2b2c2f;
+    background: #e2ebdb;
     border-radius: 0.4em;
     box-shadow: 0.3em 0.3em 0.7em #00000015;
     transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: #3e3e3e 0.2em solid;
+    border: #e2ebdb 0.2em solid;
     padding-top: 3px;
     padding-right: 10px;
     padding-bottom: 3px;
@@ -26,33 +27,42 @@ a:hover {
 }
 
 .card:hover {
-    border: #0c2845 0.2em solid;
+    border: #17a672 0.2em solid;
 }
 
 
 button {
-    background-color: #54575c;
-    color: white;
-    border-radius: 5px;
+    background-color: #fff;
+    border-radius: 10px;
     border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px, rgba(0, 0, 0, .14) 0 6px 10px 0, rgba(0, 0, 0, .12) 0 1px 18px 0;
     box-sizing: border-box;
+    color: #3c4043;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    letter-spacing: .25px;
+    line-height: normal;
     padding: 10px 15px;
+    transition: background box-shadow 280ms ease;
 }
 
 button:hover {
-    color: #c6daeb;
+    background: #F6F9FE;
+    color: #17a672;
 }
 
 button:active {
     box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%);
     outline: none;
-    border: 2px solid #0c2845;
+    border: 2px solid #17a672;
 }
+
 
 ul {
     list-style-type: none;
     overflow: hidden;
-    background-color: #171717;
+    background-color: #89cfc6;
     position: fixed;
     width: 100%;
     left: 0;
@@ -76,23 +86,24 @@ li a {
 li a:hover {
     color: white;
     text-decoration: none;
-    background-color: #4f4f4f;
+    background-color: #79ada6;
+
 }
 
 
 textarea {
-    background-color: #1f2328;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 code {
-    background-color: #151719;
+    background-color: white;
     border-radius: 5px;
     width: 90%;
 }
 
 pre {
-    background-color: #151719;
+    background-color: white;
     padding: 3px;
     border-radius: 5px;
     width: 90%;

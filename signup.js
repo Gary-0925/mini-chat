@@ -7,17 +7,17 @@ md.use(window.texmath.use(window.katex), {
 
 function check_other_char(str)
 {
-    var arr = ["\\", ">", "<"];
-    for (var i = 0; i < arr.length; i++)
-        for (var j = 0; j < str.length; j++)
-            if (arr[i] == str.charAt(j)) return false;
-    return true;
+    var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"
+    var ok = 1;
+    for (var j = 0; j < str.length; j++)
+        ok &= s.includes(str[j]);
+    return ok;
 }
 
 async function sign_up() {
     const userName = document.getElementById("name_text").value;
     if (userName == "") alert("错误：用户名为空");
-    else if (!check_other_char(userName)) alert("错误：用户名不得包含 '\\' '<' '>'");
+    else if (!check_other_char(userName)) alert("错误：用户名只能包含字母、数字、下划线");
     else
     {
         const supabase = getClient();

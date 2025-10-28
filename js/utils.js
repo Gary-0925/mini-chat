@@ -29,16 +29,17 @@ function sign_out() {
 }
 function change_theme() {
     if (localStorage.getItem("theme") == 'light') localStorage.setItem("theme", "dark");
-    else localStorage.setItem("theme", "light");
+    else if (localStorage.getItem("theme") == 'color') localStorage.setItem("theme", "light");
+    else localStorage.setItem("theme", "color");
     window.location.reload();
 }
-if (!window.location.href.includes('sign'))
+if (!window.location.href.includes('sign') && !window.location.href.includes('view'))
     document.write(`
-        <link rel="stylesheet" href="/mini-chat/css/style_dark.css">
         <ul>
             <li><a href="https://www.luogu.com.cn/user/1202669">Gary0</a></li>
             <li><a href="/mini-chat/message.html">聊天</a></li>
             <li><a href="/mini-chat/article.html">文章</a></li>
+            <li><a href="/mini-chat/page.html"><button style="height: 15px; padding: 2px;">NEW!</button>页面</a></li>
             <li><a href="/mini-chat/prikey.html">我的</a></li>
             <div style="position: fixed; right: 0;">
                 <li style="position: float;"><a href="javascript:change_theme()">主题</a></li>
@@ -48,4 +49,5 @@ if (!window.location.href.includes('sign'))
         <br>
     `)
 if (localStorage.getItem("theme") == 'light') document.write(`<link rel="stylesheet" href="/mini-chat/css/style_light.css">`);
+else if (localStorage.getItem("theme") == 'color') document.write(`<link rel="stylesheet" href="/mini-chat/css/style_color.css">`);
 else document.write(`<link rel="stylesheet" href="/mini-chat/css/style_dark.css">`);

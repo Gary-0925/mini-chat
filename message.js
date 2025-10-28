@@ -7,11 +7,11 @@ md.use(window.texmath.use(window.katex), {
 
 function check_other_char(str)
 {
-    var arr = ["\\", ">", "<"];
-    for (var i = 0; i < arr.length; i++)
-        for (var j = 0; j < str.length; j++)
-            if (arr[i] == str.charAt(j)) return false;
-    return true;
+    var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"
+    var ok = 1;
+    for (var j = 0; j < str.length; j++)
+        ok &= s.includes(str[j]);
+    return ok;
 }
 
 function verify_message(id, pubkey, info, sign) {

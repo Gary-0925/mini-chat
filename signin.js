@@ -5,14 +5,6 @@ md.use(window.texmath.use(window.katex), {
     katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
 });
 
-function check_other_char(str) {
-    var arr = ["\\", ">", "<"];
-    for (var i = 0; i < arr.length; i++)
-        for (var j = 0; j < str.length; j++)
-            if (arr[i] == str.charAt(j)) return false;
-    return true;
-}
-
 async function sign_in() {
     const userName = document.getElementById("name_text").value;
     const priKey = document.getElementById("prikey_text").value;
