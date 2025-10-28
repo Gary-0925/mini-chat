@@ -5,8 +5,7 @@ md.use(window.texmath.use(window.katex), {
     katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
 });
 
-function check_other_char(str)
-{
+function check_other_char(str) {
     var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"
     var ok = 1;
     for (var j = 0; j < str.length; j++)
@@ -24,27 +23,26 @@ function verify_article(id, pubkey, sign) {
 }
 
 async function load_list() {
-    if (localStorage.getItem("name") != null) {
-        const supabase = getClient();
-        const titlerEl = document.getElementById('titler');
-        const containerEl = document.getElementById('container');
-        if (getArgs('id') == null) {
-            var { data: articles, error: errorm } = await supabase
-                .from('articles')
-                .select('id, name, title, info, sign')
-                .order('id');
-            const { data: users, error: erroru } = await supabase
-                .from('users')
-                .select('name, pubkey')
-                .order('name');
-            if (errorm || erroru) {
-                containerEl.innerHTML = `<p>文章加载失败...你可以尝试刷新页面，有时候数据库状态不太好，毕竟是免费的啦...</p>`;
-                return;
-            }
-            if (getArgs('all') != "1") articles = articles.slice(0, 20);
-            titlerEl.innerHTML = "文章列表";
-            let pageHTML = ``;
-            pageHTML += `
+    const supabase = getClient();
+    const titlerEl = document.getElementById('titler');
+    const containerEl = document.getElementById('container');
+    if (getArgs('id') == null) {
+        var { data: articles, error: errorm } = await supabase
+            .from('articles')
+            .select('id, name, title, info, sign')
+            .order('id');
+        const { data: users, error: erroru } = await supabase
+            .from('users')
+            .select('name, pubkey')
+            .order('name');
+        if (errorm || erroru) {
+            containerEl.innerHTML = `<p>文章加载失败...你可以尝试刷新页面，有时候数据库状态不太好，毕竟是免费的啦...</p>`;
+            return;
+        }
+        if (getArgs('all') != "1") articles = articles.slice(0, 20);
+        titlerEl.innerHTML = "文章列表";
+        let pageHTML = ``;
+        pageHTML += `
                 <div class="card" style="width: 40%; position: fixed; right: 0; bottom: 0;">
                     <div class="card" style="width: 100px; text-align: center;">
                         ${localStorage.getItem("name")}
@@ -59,43 +57,43 @@ async function load_list() {
                     <button onclick="send_article()">发送</button>
                 </div>
             `;
-            pageHTML += `<div style="display: grid; place-items: center;">`;
-            var userKey = new Map();
-            users.forEach(user => {
-                userKey.set(user.name, user.pubkey);
-            });
-            articles.forEach(article => {
-                if (check_other_char(article.name) && verify_article(article.id, userKey.get(article.name), article.sign)) {
-                    pageHTML += `
+        pageHTML += `<div style="display: grid; place-items: center;">`;
+        var userKey = new Map();
+        users.forEach(user => {
+            userKey.set(user.name, user.pubkey);
+        });
+        articles.forEach(article => {
+            if (check_other_char(article.name) && verify_article(article.id, userKey.get(article.name), article.sign)) {
+                pageHTML += `
                     <div class="card" style="width: 70%;">
                         <div class="card" style="width: 100px; text-align: center;">${article.name}</div>
                         <a href="?id=${article.id}"><div class="card" style="width: 97%;"><h2>${article.title}</h2></div></a>
                     </div>
                     <p></p>
                 `;
-                }
-            });
-            pageHTML += `</div>`;
-            if (getArgs('all') != "1") pageHTML += `<div style="text-align: center;"><a href="?all=1">查看更多<\a></div>`
-            else pageHTML += `<div style="text-align: center;"><a href="?all=0">查看更少<\a></div>`
-            containerEl.innerHTML = pageHTML;
-        } else {
-            try {
-                const { data: article, error: errorm } = await supabase
-                    .from('articles')
-                    .select('id, name, title, info, sign')
-                    .eq('id', getArgs('id'));
-                const { data: users, error: erroru } = await supabase
-                    .from('users')
-                    .select('name, pubkey')
-                    .eq('name', article[0].name);
-                if (errorm || erroru) {
-                    titlerEl.innerHTML = "404";
-                    containerEl.innerHTML = `<p style="text-align: center;">文章不见了呐~</p>`;
-                }
-                else if (check_other_char(article[0].name) && verify_article(article[0].id, users[0].pubkey, article[0].sign)) {
-                    titlerEl.innerHTML = article[0].title;
-                    containerEl.innerHTML = `
+            }
+        });
+        pageHTML += `</div>`;
+        if (getArgs('all') != "1") pageHTML += `<div style="text-align: center;"><a href="?all=1">查看更多<\a></div>`
+        else pageHTML += `<div style="text-align: center;"><a href="?all=0">查看更少<\a></div>`
+        containerEl.innerHTML = pageHTML;
+    } else {
+        try {
+            const { data: article, error: errorm } = await supabase
+                .from('articles')
+                .select('id, name, title, info, sign')
+                .eq('id', getArgs('id'));
+            const { data: users, error: erroru } = await supabase
+                .from('users')
+                .select('name, pubkey')
+                .eq('name', article[0].name);
+            if (errorm || erroru) {
+                titlerEl.innerHTML = "404";
+                containerEl.innerHTML = `<p style="text-align: center;">文章不见了呐~</p>`;
+            }
+            else if (check_other_char(article[0].name) && verify_article(article[0].id, users[0].pubkey, article[0].sign)) {
+                titlerEl.innerHTML = article[0].title;
+                containerEl.innerHTML = `
                         <div style="display: grid; place-items: center;">
                             <div class="card" style="width: 70%;">
                                 <div class="card" style="width: 100px; text-align: center;">${article[0].name}</div>
@@ -103,18 +101,15 @@ async function load_list() {
                             </div>
                         </div>
                     `;
-                } else {
-                    titlerEl.innerHTML = "404";
-                    containerEl.innerHTML = `<p style="text-align: center;">文章不见了呐~</p>`;
-                }
-            }
-            catch (error) {
+            } else {
                 titlerEl.innerHTML = "404";
                 containerEl.innerHTML = `<p style="text-align: center;">文章不见了呐~</p>`;
             }
         }
-    } else {
-        window.location.replace("/mini-chat/signup.html");
+        catch (error) {
+            titlerEl.innerHTML = "404";
+            containerEl.innerHTML = `<p style="text-align: center;">文章不见了呐~</p>`;
+        }
     }
 }
 
