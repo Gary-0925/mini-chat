@@ -118,4 +118,6 @@ async function send_message() {
     }
 }
 
+write_path("消息", "/mini-chat/message.html");
+
 load_list();

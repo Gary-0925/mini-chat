@@ -19,10 +19,7 @@ a:hover {
     box-shadow: 0.3em 0.3em 0.7em #00000015;
     transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: #f7f7f7 0.2em solid;
-    padding-top: 3px;
-    padding-right: 10px;
-    padding-bottom: 3px;
-    padding-left: 10px;
+    padding: 3px 10px;
 }
 
 .card:hover {
@@ -95,4 +92,93 @@ pre {
     padding: 3px;
     border-radius: 5px;
     width: 90%;
+}
+
+.topbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    margin: 0;
+    height: 55px;
+    width: 100%;
+    background-color: #fefefe;
+    box-shadow: 0 2px 2px #dddddd;
+    z-index: 100;
+}
+
+.leftbar {
+    position: fixed;
+    left: 0;
+    top: 50px;
+    height: 100%;
+    width: 60px;
+    transition: width 0.2s;
+    background-color: #fefefe;
+    box-shadow: 0 5px 5px #dddddd;
+    z-index: 99;
+}
+
+.leftbar:hover {
+    text-align: center;
+    width: 150px;
+}
+
+.topbar_item {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    transition: filter 0.3s;
+    width: 60px;
+    height: 55px;
+}
+
+.topbar_item:hover {
+    filter: brightness(70%);
+}
+
+.leftbar_item {
+    position: relative;
+    display: table;
+    vertical-align: middle;
+    text-align: left;
+    left: 13px;
+    width: 60px;
+    height: 45px;
+}
+
+.leftbar_text {
+    text-align: left;
+    width: 90%;
+    padding: 5px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.leftbar_text:hover {
+    background-color: #dddddd22;
+}
+
+.topbar_text {
+    transition: background-color 0.3s;
+    text-align: center;
+    padding: 5px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.topbar_text:hover {
+    background-color: #dddddd22;
+}
+
+.leftbar a {
+    text-decoration: none;
+    color: black;
+}
+
+.topbar a {
+    text-decoration: none;
+    color: black;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
 }

@@ -2,7 +2,7 @@ const md = window.markdownit({});
 md.use(window.texmath.use(window.katex), {
     engine: window.katex,
     delimiters: 'dollars',
-    katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
+    katexOptions: {macros: {"\\RR": "\\mathbb{R}"}}
 });
 
 function check_other_char(str) {
@@ -15,11 +15,12 @@ function check_other_char(str) {
 
 function verify_article(id, pubkey, sign) {
     try {
-        const crypt = new JSEncrypt({ default_key_size: 2048 });
+        const crypt = new JSEncrypt({default_key_size: 2048});
         crypt.setPublicKey(pubkey);
         return crypt.verify(id.toString(), sign, CryptoJS.SHA256);
+    } catch (error) {
+        return false;
     }
-    catch (error) { return false; }
 }
 
 async function load_list() {
@@ -27,11 +28,11 @@ async function load_list() {
     const titlerEl = document.getElementById('titler');
     const containerEl = document.getElementById('container');
     if (getArgs('id') == null) {
-        var { data: articles, error: errorm } = await supabase
+        var {data: articles, error: errorm} = await supabase
             .from('articles')
             .select('id, name, title, info, sign')
             .order('id');
-        const { data: users, error: erroru } = await supabase
+        const {data: users, error: erroru} = await supabase
             .from('users')
             .select('name, pubkey')
             .order('name');
@@ -42,7 +43,8 @@ async function load_list() {
         if (getArgs('all') != "1") articles = articles.slice(0, 20);
         titlerEl.innerHTML = "文章列表";
         let pageHTML = ``;
-        pageHTML += `
+        if (document.getElementById('name') != null)
+            pageHTML += `
                 <div class="card" style="width: 40%; position: fixed; right: 0; bottom: 0;">
                     <div class="card" style="width: 100px; text-align: center;">
                         ${localStorage.getItem("name")}
@@ -79,19 +81,18 @@ async function load_list() {
         containerEl.innerHTML = pageHTML;
     } else {
         try {
-            const { data: article, error: errorm } = await supabase
+            const {data: article, error: errorm} = await supabase
                 .from('articles')
                 .select('id, name, title, info, sign')
                 .eq('id', getArgs('id'));
-            const { data: users, error: erroru } = await supabase
+            const {data: users, error: erroru} = await supabase
                 .from('users')
                 .select('name, pubkey')
                 .eq('name', article[0].name);
             if (errorm || erroru) {
                 titlerEl.innerHTML = "404";
                 containerEl.innerHTML = `<p style="text-align: center;">文章不见了呐~</p>`;
-            }
-            else if (check_other_char(article[0].name) && verify_article(article[0].id, users[0].pubkey, article[0].sign)) {
+            } else if (check_other_char(article[0].name) && verify_article(article[0].id, users[0].pubkey, article[0].sign)) {
                 titlerEl.innerHTML = article[0].title;
                 containerEl.innerHTML = `
                         <div style="display: grid; place-items: center;">
@@ -105,8 +106,7 @@ async function load_list() {
                 titlerEl.innerHTML = "404";
                 containerEl.innerHTML = `<p style="text-align: center;">文章不见了呐~</p>`;
             }
-        }
-        catch (error) {
+        } catch (error) {
             titlerEl.innerHTML = "404";
             containerEl.innerHTML = `<p style="text-align: center;">文章不见了呐~</p>`;
         }
@@ -123,11 +123,11 @@ async function send_article() {
         if (userName == null) alert('错误：未登录');
         else if (articleInfo == '') alert('错误：文章为空');
         else {
-            const crypt = new JSEncrypt({ default_key_size: 2048 });
+            const crypt = new JSEncrypt({default_key_size: 2048});
             const priKey = localStorage.getItem('priKey');
             crypt.setPrivateKey(priKey);
             const messageSign = crypt.sign(articleId.toString(), CryptoJS.SHA256, "sha256");
-            const { data, error } = await supabase
+            const {data, error} = await supabase
                 .from('articles')
                 .insert([
                     {
@@ -149,5 +149,8 @@ async function send_article() {
         alert('错误：' + error.message);
     }
 }
+
+write_path("文章", "/mini-chat/article.html");
+if (getArgs('id') != null) write_path(getArgs('id'), `/mini-chat/article.html?id=${getArgs('id')})`);
 
 load_list();

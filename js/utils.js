@@ -1,4 +1,5 @@
 let supabaseClient = null;
+
 function getClient() {
     if (!supabaseClient) {
         const supabaseUrl = 'https://xagbayhoblnpfropmrdi.supabase.co';
@@ -7,6 +8,7 @@ function getClient() {
     }
     return supabaseClient;
 }
+
 function getArgs(key) {
     const args = {};
     for (const [k, v] of new URLSearchParams(window.location.search).entries()) {
@@ -14,6 +16,7 @@ function getArgs(key) {
     }
     return key ? args[key] : args;
 }
+
 document.addEventListener('DOMContentLoaded', function () {
     const currentPath = window.location.pathname;
     let scriptPath = currentPath.replace(/\.html$/, '.js');
@@ -22,32 +25,168 @@ document.addEventListener('DOMContentLoaded', function () {
     script.src = scriptPath;
     document.head.appendChild(script);
 });
+
 function sign_out() {
     localStorage.removeItem("name");
     localStorage.removeItem("priKey");
     window.location.reload();
 }
+
 function change_theme() {
     if (localStorage.getItem("theme") == 'light') localStorage.setItem("theme", "dark");
     else if (localStorage.getItem("theme") == 'color') localStorage.setItem("theme", "light");
     else localStorage.setItem("theme", "color");
     window.location.reload();
 }
-if (!window.location.href.includes('sign') && !window.location.href.includes('view'))
-    document.write(`
-        <ul>
-            <li><a href="https://www.luogu.com.cn/user/1202669">Gary0</a></li>
-            <li><a href="/mini-chat/message.html">聊天</a></li>
-            <li><a href="/mini-chat/article.html">文章</a></li>
-            <li><a href="/mini-chat/page.html"><button style="height: 15px; padding: 2px;">NEW!</button>页面</a></li>
-            <li><a href="/mini-chat/prikey.html">我的</a></li>
-            <div style="position: fixed; right: 0;">
-                <li style="position: float;"><a href="javascript:change_theme()">主题</a></li>
-                <li style="position: float;"><a href="javascript:sign_out()" style="color: red;">登出</a></li>
+
+function leftbar_hover() {
+    const El = document.querySelectorAll('.leftbar');
+    if (
+            window.getComputedStyle(El[0]).width[0] == '1' &&
+            !El[0].innerHTML.includes("聊天")
+    ) {
+        El[0].innerHTML = `
+            <div class="leftbar_item"></div>
+            <a href="/mini-chat/message.html">
+                <div class="leftbar_item" style="width: 90%;">
+                    <div class="leftbar_text">
+                        <img src="/mini-chat/image/chat.svg" style="height: 22px; width: 22px;">
+                        <div style="height: 100%; display: inline;">
+                            <div style="height: 100%; display: table-cell; vertical-align: middle;">&nbsp;&nbsp;聊天</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="/mini-chat/article.html">
+                <div class="leftbar_item" style="width: 90%;">
+                    <div class="leftbar_text">
+                        <img src="/mini-chat/image/article.svg" style="height: 22px; width: 22px;">
+                        <div style="height: 100%; display: inline">
+                            <div style="height: 100%; display: table-cell; vertical-align: middle;">&nbsp;&nbsp;文章</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="/mini-chat/page.html">
+                <div class="leftbar_item" style="width: 90%;">
+                    <div class="leftbar_text">
+                        <img src="/mini-chat/image/page.svg" style="height: 22px; width: 22px;">
+                        <div style="height: 100%; display: inline">
+                            <div style="height: 100%; display: table-cell; vertical-align: middle;">&nbsp;&nbsp;页面</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <div class="leftbar_item" style="width: 90%;">
+                <div style="height: 1px; width: 90%; background-color: #e0e0e0;"></div>
             </div>
-        </ul>
-        <br>
-    `)
-if (localStorage.getItem("theme") == 'light') document.write(`<link rel="stylesheet" href="/mini-chat/css/style_light.css">`);
+            <div class="leftbar_item" style="width: 90%;">
+                <h6>相关链接<h6>
+            </div>
+            <div class="leftbar_item" style="width: 90%">
+                <div class="leftbar_text">
+                    <div style="height: 100%; display: inline">
+                        <div style="height: 100%; display: table-cell; vertical-align: middle;">关于咯咕</div>
+                    </div>
+                </div>
+            </div>
+            <a href="https://www.luogu.com.cn/user/1202669">
+                <div class="leftbar_item" style="width: 90%">
+                    <div class="leftbar_text">
+                        <div style="height: 100%; display: inline">
+                            <div style="height: 100%; display: table-cell; vertical-align: middle;">关于 Gary0</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        `;
+    }
+}
+
+function leftbar_not_hover() {
+    const El = document.querySelectorAll('.leftbar');
+    El[0].innerHTML = `
+        <div class="leftbar_item"></div>
+        <div class="leftbar_item">
+            <div class="leftbar_text">
+                <img src="/mini-chat/image/chat.svg" style="height: 22px; width: 22px;">
+            </div>
+        </div>
+        <div class="leftbar_item">
+            <div class="leftbar_text">
+                <img src="/mini-chat/image/article.svg" style="height: 22px; width: 22px;">
+            </div>
+        </div>
+        <div class="leftbar_item">
+            <div class="leftbar_text">
+                <img src="/mini-chat/image/page.svg" style="height: 22px; width: 22px;">
+            </div>
+        </div>
+    `;
+}
+
+function write_path(name, url) {
+    const El = document.getElementById('path');
+    El.innerHTML += `
+        <div class="topbar_item" style="width: auto;">/</div>
+        <a href=${url}>
+            <div class="topbar_item">
+                <div class="topbar_text">${name}</div>
+            </div>
+        </a>
+    `;
+}
+
+
+document.write(`
+    <!--ul>
+        <li><a href="https://www.luogu.com.cn/user/1202669">Gary0</a></li>
+        <li><a href="/mini-chat/message.html">聊天</a></li>
+        <li><a href="/mini-chat/article.html">文章</a></li>
+        <li><a href="/mini-chat/page.html"><button style="height: 15px; padding: 2px;">NEW!</button>页面</a></li>
+        <li><a href="/mini-chat/prikey.html">我的</a></li>
+        <div style="position: fixed; right: 0;">
+            <li style="position: float;"><a href="javascript:change_theme()">主题</a></li>
+            <li style="position: float;"><a href="javascript:sign_out()" style="color: red;">登出</a></li>
+        </div>
+    </ul-->
+    <link rel="shortcut icon" href="/mini-chat/image/favicon.ico">
+    <div class="topbar" id="mainbar">
+        <div class="topbar_item">
+            <a href="/mini-chat/index.html">
+                <img src="/mini-chat/image/icon.svg" alt="图标" style="height: 30px; width: 50px;">
+            </a>
+        </div>
+        <div class="topbar_item" id="path" style="width: auto;">
+            <a href="/mini-chat/index.html">
+                <div class="topbar_item">
+                    <div class="topbar_text">咯咕</div>
+                </div>
+            </a>
+        </div>
+        
+    </div>
+    <div class="leftbar" onmousemove="leftbar_hover()" onmouseleave="leftbar_not_hover()"></div>
+    <br>
+`);
+if (localStorage.getItem('name') != null)
+    document.getElementById('mainbar').innerHTML += `
+    <div class="topbar_item" style="width: auto; position: fixed; top: 0px; right: 0px;">
+        <div class="topbar_item" style="width: auto;">
+            <a href="/mini-chat/prikey.html">
+                <div class="topbar_text">查看我的 priKey</div>
+            </a>
+        </div>
+        <div class="topbar_item" style="width: auto;">
+            <a href="javascript:sign_out()">
+                <div class="topbar_text" style="color: red;">登出</div>
+            </a>
+        </div>
+    </div>
+    `;
+leftbar_not_hover();
+/*if (localStorage.getItem("theme") == 'light') document.write(`<link rel="stylesheet" href="/mini-chat/css/style_light.css">`);
 else if (localStorage.getItem("theme") == 'color') document.write(`<link rel="stylesheet" href="/mini-chat/css/style_color.css">`);
-else document.write(`<link rel="stylesheet" href="/mini-chat/css/style_dark.css">`);
+else document.write(`<link rel="stylesheet" href="/mini-chat/css/style_dark.css">`);*/
+
+document.write(`<link rel="stylesheet" href="/mini-chat/css/style_light.css">`);

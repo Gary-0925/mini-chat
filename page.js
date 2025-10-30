@@ -162,4 +162,7 @@ async function send_article() {
     }
 }
 
+write_path("页面", "/mini-chat/page.html");
+if (getArgs('id') != null) write_path(getArgs('id'), `/mini-chat/page.html?id=${getArgs('id')})`);
+
 load_list();

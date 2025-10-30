@@ -22,4 +22,6 @@ function load() {
     }
 }
 
+write_path("我的", "/mini-chat/prikey.html");
+
 load();
